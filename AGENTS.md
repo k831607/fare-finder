@@ -8,3 +8,8 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Project architecture
+
+- Use Lovable Cloud's built-in authentication user record only; v1 intentionally has no profile or domain tables because route subscriptions come later.
+- Keep signed-in screens under the `_authenticated` route layout so access checks stay centralized and consistent.
