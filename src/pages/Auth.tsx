@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "react-router";
 import { ArrowLeft, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useEffect, useState, type FormEvent } from "react";
 
@@ -7,40 +7,37 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useDocumentMeta } from "@/hooks/use-document-meta";
 import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/auth")({
-  head: () => ({
-    meta: [
-      { title: "Sign in — Flight Price Notifier" },
-      {
-        name: "description",
-        content: "Sign in or create your Flight Price Notifier account.",
-      },
-      { property: "og:title", content: "Sign in — Flight Price Notifier" },
-      {
-        property: "og:description",
-        content: "Sign in to manage your future flight price alerts.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: AuthPage,
-});
+type AuthMode = "signin" | "signup";
 
-function AuthPage() {
+const modePath: Record<AuthMode, string> = { signin: "/sign-in", signup: "/sign-up" };
+
+export default function AuthPage({ initialMode }: { initialMode: AuthMode }) {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<AuthMode>(initialMode);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
 
+  useDocumentMeta({
+    title: mode === "signin" ? "Sign in — Flight Price Notifier" : "Sign up — Flight Price Notifier",
+    description: "Sign in or create your Flight Price Notifier account.",
+  });
+
+  // Keep the form in sync when the URL switches between /sign-in and /sign-up
+  // (e.g. browser back/forward).
+  useEffect(() => {
+    setMode(initialMode);
+    setError("");
+  }, [initialMode]);
+
   useEffect(() => {
     void supabase.auth.getUser().then(({ data }) => {
-      if (data.user) void navigate({ to: "/app", replace: true });
+      if (data.user) void navigate("/app", { replace: true });
     });
   }, [navigate]);
 
@@ -69,12 +66,13 @@ function AuthPage() {
       return;
     }
 
-    await navigate({ to: "/app", replace: true });
+    await navigate("/app", { replace: true });
   }
 
-  function changeMode(nextMode: "signin" | "signup") {
+  function changeMode(nextMode: AuthMode) {
     setMode(nextMode);
     setError("");
+    if (nextMode !== initialMode) void navigate(modePath[nextMode], { replace: true });
   }
 
   return (

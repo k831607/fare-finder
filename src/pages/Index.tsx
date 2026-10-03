@@ -1,28 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router";
 import { ArrowRight, BellRing, Eye, PlaneTakeoff, X } from "lucide-react";
 
 import { BrandMark } from "@/components/brand-mark";
 import { Button } from "@/components/ui/button";
+import { useDocumentMeta } from "@/hooks/use-document-meta";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Flight Price Notifier — 機票降價通知" },
-      {
-        name: "description",
-        content: "設定航線與目標價，機票降價就通知你。Set a route and target price and get an email when fares drop.",
-      },
-      { property: "og:title", content: "Flight Price Notifier — 機票降價通知" },
-      {
-        property: "og:description",
-        content: "Set a route and a target price — we email you when the fare drops.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: Index,
-});
 
 const features = [
   {
@@ -48,7 +30,13 @@ const features = [
   },
 ];
 
-function Index() {
+export default function Index() {
+  useDocumentMeta({
+    title: "Flight Price Notifier — 機票降價通知",
+    description:
+      "設定航線與目標價，機票降價就通知你。Set a route and target price and get an email when fares drop.",
+  });
+
   return (
     <main className="overflow-hidden bg-background">
       <section className="relative min-h-[92vh] border-b border-border">
@@ -59,7 +47,7 @@ function Index() {
           <header className="flex min-h-20 items-center justify-between border-b border-border/70">
             <BrandMark />
             <Button asChild>
-              <Link to="/auth">
+              <Link to="/sign-in">
                 Sign in / 登入
                 <ArrowRight aria-hidden="true" />
               </Link>
@@ -85,7 +73,7 @@ function Index() {
                 </p>
               </div>
               <Button asChild size="lg" className="mt-10 h-12 px-6">
-                <Link to="/auth">
+                <Link to="/sign-in">
                   Start watching fares
                   <ArrowRight aria-hidden="true" />
                 </Link>

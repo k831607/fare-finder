@@ -1,34 +1,28 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router";
 import { BellRing, LogOut, Plane, Sparkles } from "lucide-react";
 import { useState } from "react";
 
 import { BrandMark } from "@/components/brand-mark";
 import { Button } from "@/components/ui/button";
+import { useAuthenticatedUser } from "@/components/layout/require-auth";
+import { useDocumentMeta } from "@/hooks/use-document-meta";
 import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/_authenticated/app")({
-  head: () => ({
-    meta: [
-      { title: "Dashboard — Flight Price Notifier" },
-      { name: "description", content: "Your Flight Price Notifier dashboard." },
-      { property: "og:title", content: "Dashboard — Flight Price Notifier" },
-      { property: "og:description", content: "Manage your flight price notifications." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: AppPage,
-});
 
-function AppPage() {
-  const { user } = Route.useRouteContext();
+export default function AppPage() {
+  const user = useAuthenticatedUser();
   const navigate = useNavigate();
   const [pending, setPending] = useState(false);
+
+  useDocumentMeta({
+    title: "Dashboard — Flight Price Notifier",
+    description: "Your Flight Price Notifier dashboard.",
+  });
 
   async function handleSignOut() {
     setPending(true);
     await supabase.auth.signOut();
-    await navigate({ to: "/auth", replace: true });
+    await navigate("/sign-in", { replace: true });
   }
 
   return (

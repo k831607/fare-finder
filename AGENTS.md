@@ -12,4 +12,7 @@
 ## Project architecture
 
 - Use Lovable Cloud's built-in authentication user record only; v1 intentionally has no profile or domain tables because route subscriptions come later.
-- Keep signed-in screens under the `_authenticated` route layout so access checks stay centralized and consistent.
+- This is a plain Vite + React SPA (no SSR, no TanStack Start, no Cloudflare/wrangler). `vite build` emits a static site to `dist/`; `vercel.json` rewrites every path to `index.html` so deep links resolve client-side.
+- Routes live in `src/router.tsx` (React Router). Pages live in `src/pages/`.
+- Keep signed-in screens nested under the `<RequireAuth />` layout route (`src/components/layout/require-auth.tsx`) so access checks stay centralized and consistent.
+- Only `VITE_*` env vars reach the browser bundle; never put secrets (e.g. service-role keys) in them.
