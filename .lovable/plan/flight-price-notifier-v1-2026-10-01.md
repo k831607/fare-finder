@@ -12,7 +12,7 @@ Build a polished bilingual landing page, email/password authentication, and a pr
 - Use restrained route-line and fare-alert visuals plus subtle entrance animation, with motion reduced when the visitor requests it.
 
 ## Authentication
-- Enable Lovable Cloud and email/password authentication, using only the built-in user account record—no profiles or custom tables.
+- Use Supabase Auth (email/password) on the user-owned Supabase project `wvzrjguaerlzdxrtuubf`, using only the built-in user account record—no profiles or custom tables.
 - Disable email confirmation so successful signup can immediately continue into the app, as requested for this v1.
 - Add a public auth page with distinct Sign In and Sign Up modes, clear validation, loading, and error states.
 - Keep authentication state synchronized globally so navigation reflects sign-in and sign-out immediately.

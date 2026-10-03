@@ -11,7 +11,7 @@
 
 ## Project architecture
 
-- Use Lovable Cloud's built-in authentication user record only; v1 intentionally has no profile or domain tables because route subscriptions come later.
+- Backend is the user-owned Supabase project `wvzrjguaerlzdxrtuubf` (FlightPriceNotifier001), configured via `VITE_SUPABASE_URL` / `VITE_SUPABASE_PUBLISHABLE_KEY`. Use Supabase's built-in `auth.users` record only; v1 intentionally has no profile or domain tables because route subscriptions come later.
 - This is a plain Vite + React SPA (no SSR, no TanStack Start, no Cloudflare/wrangler). `vite build` emits a static site to `dist/`; `vercel.json` rewrites every path to `index.html` so deep links resolve client-side.
 - Routes live in `src/router.tsx` (React Router). Pages live in `src/pages/`.
 - Keep signed-in screens nested under the `<RequireAuth />` layout route (`src/components/layout/require-auth.tsx`) so access checks stay centralized and consistent.
