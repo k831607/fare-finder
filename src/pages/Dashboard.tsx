@@ -65,7 +65,7 @@ export default function AppPage() {
                 { icon: BellRing, label: "Alert", value: "Target price" },
                 { icon: Sparkles, label: "Status", value: "Coming soon" },
               ].map(({ icon: Icon, label, value }) => (
-                <div key={label} className="border border-border bg-card/60 p-4 backdrop-blur-sm">
+                <div key={label} className="rounded-2xl border border-border bg-card/80 p-4 backdrop-blur-sm">
                   <Icon className="mb-5 size-5 text-primary" aria-hidden="true" />
                   <p className="text-[11px] font-semibold uppercase text-subtle-foreground">{label}</p>
                   <p className="mt-1 text-sm font-medium text-foreground">{value}</p>

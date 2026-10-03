@@ -41,7 +41,7 @@ export default function Index() {
     <main className="overflow-hidden bg-background">
       <section className="relative min-h-[92vh] border-b border-border">
         <div className="route-grid absolute inset-0 opacity-50" aria-hidden="true" />
-        <div className="hero-beam absolute left-[58%] top-0 h-full w-px" aria-hidden="true" />
+        <div className="hero-beam absolute left-[58%] top-0 hidden h-full w-px lg:block" aria-hidden="true" />
 
         <div className="relative mx-auto flex min-h-[92vh] w-full max-w-[1400px] flex-col px-5 sm:px-8 lg:px-12">
           <header className="flex min-h-20 items-center justify-between border-b border-border/70">
@@ -57,12 +57,12 @@ export default function Index() {
           <div className="grid flex-1 items-center gap-12 py-14 lg:grid-cols-[1.25fr_0.75fr] lg:py-20">
             <div className="reveal-up max-w-4xl">
               <div className="mb-7 flex items-center gap-3 text-xs font-semibold uppercase text-primary">
-                <span className="inline-block size-2 rounded-full bg-primary shadow-[0_0_18px_var(--violet-glow)]" />
+                <span className="inline-block size-2.5 rounded-full bg-primary ring-4 ring-primary/15" />
                 Taipei departures · Price watch active
               </div>
-              <h1 className="font-display text-[clamp(3.6rem,8.8vw,8.4rem)] font-semibold leading-[0.87] text-foreground">
+              <h1 className="font-display text-[clamp(3.6rem,8.8vw,8.4rem)] font-extrabold leading-[0.87] tracking-tight text-foreground">
                 Flight Price
-                <span className="block text-primary">Notifier</span>
+                <span className="block text-[var(--ink-blue)]">Notifier</span>
               </h1>
               <div className="mt-10 max-w-2xl border-l-2 border-primary pl-6">
                 <p className="font-display text-2xl font-medium leading-snug text-foreground sm:text-4xl">
@@ -81,27 +81,29 @@ export default function Index() {
             </div>
 
             <div className="reveal-up relative hidden min-h-[440px] lg:block" aria-hidden="true">
-              <div className="absolute left-6 top-10 text-xs font-semibold text-subtle-foreground">TPE</div>
-              <div className="absolute bottom-14 right-4 text-xs font-semibold text-subtle-foreground">NRT</div>
+              <div className="stripe-poster absolute inset-4" />
+              <div className="absolute left-6 top-10 rounded-full bg-card px-3 py-1 text-xs font-semibold text-foreground shadow-sm">TPE</div>
+              <div className="absolute bottom-14 right-4 rounded-full bg-card px-3 py-1 text-xs font-semibold text-foreground shadow-sm">NRT</div>
               <svg viewBox="0 0 440 440" className="absolute inset-0 h-full w-full overflow-visible">
                 <path
                   d="M48 92 C 142 88, 194 298, 382 348"
                   fill="none"
-                  stroke="var(--border)"
-                  strokeWidth="1"
-                  strokeDasharray="5 9"
+                  stroke="var(--foreground)"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeDasharray="2 10"
                 />
-                <circle cx="48" cy="92" r="6" fill="var(--primary)" />
-                <circle cx="382" cy="348" r="6" fill="var(--primary)" />
+                <circle cx="48" cy="92" r="7" fill="var(--foreground)" />
+                <circle cx="382" cy="348" r="7" fill="var(--foreground)" />
               </svg>
-              <div className="absolute left-[48%] top-[45%] grid size-16 -rotate-12 place-items-center rounded-full border border-primary/40 bg-primary/10 text-primary shadow-[0_0_50px_var(--violet-glow)]">
+              <div className="absolute left-[48%] top-[45%] grid size-16 -rotate-12 place-items-center rounded-full border-4 border-card bg-foreground text-card shadow-lg">
                 <PlaneTakeoff className="size-7" />
               </div>
-              <div className="absolute right-3 top-14 w-48 border border-border bg-card/80 p-4 backdrop-blur">
+              <div className="absolute right-3 top-14 w-48 rounded-2xl border border-border bg-card p-4 shadow-lg">
                 <p className="text-[10px] font-semibold uppercase text-subtle-foreground">Price signal</p>
                 <p className="mt-2 font-display text-3xl font-semibold text-foreground">-18%</p>
-                <div className="mt-4 h-1 bg-secondary">
-                  <div className="h-full w-4/5 bg-primary" />
+                <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-secondary">
+                  <div className="h-full w-4/5 rounded-full bg-primary" />
                 </div>
               </div>
             </div>
@@ -131,7 +133,7 @@ export default function Index() {
           {features.map(({ number, icon: Icon, title, english, description }) => (
             <article
               key={title}
-              className="feature-card group min-h-[310px] border-b border-r border-border bg-card/30 p-7 sm:p-8"
+              className="feature-card group min-h-[310px] border-b border-r border-border bg-card/60 p-7 sm:p-8"
             >
               <div className="flex items-start justify-between">
                 <Icon className="size-6 text-primary" aria-hidden="true" />
