@@ -15,12 +15,13 @@ const FLIGHT_API_URL = (
 // Display only — the charged amount comes from the server-side flight/ecpay secret.
 const MONTHLY_FEE_TWD = 300;
 
-type PlanName = "tokyo" | "seoul";
+type PlanName = "tokyo" | "seoul" | "london";
 type Status = "active" | "pending_payment" | "cancelled" | "expired";
 
 const PLANS: { plan: PlanName; route: string; title: string; hint: number }[] = [
   { plan: "tokyo", route: "TPE-TYO", title: "台北 ✈ 東京", hint: 9325 },
   { plan: "seoul", route: "TPE-SEL", title: "台北 ✈ 首爾", hint: 5989 },
+  { plan: "london", route: "TPE-LON", title: "台北 ✈ 倫敦", hint: 22583 },
 ];
 
 type Subscription = {
