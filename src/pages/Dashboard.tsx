@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router";
-import { BellRing, LogOut, Plane, Sparkles } from "lucide-react";
+import { LogOut, Sparkles } from "lucide-react";
 import { useState } from "react";
 
 import { BrandMark } from "@/components/brand-mark";
+import { PlanCards } from "@/components/plan-cards";
 import { Button } from "@/components/ui/button";
 import { useAuthenticatedUser } from "@/components/layout/require-auth";
 import { useDocumentMeta } from "@/hooks/use-document-meta";
@@ -41,37 +42,21 @@ export default function AppPage() {
           <div className="reveal-up">
             <p className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase text-primary">
               <Sparkles className="size-4" aria-hidden="true" />
-              Dashboard preview
+              Dashboard
             </p>
             <h1 className="font-display text-3xl font-semibold text-foreground sm:text-5xl">
               Hi {user.email}
             </h1>
-            <div className="mt-10 border-l-2 border-primary pl-6 sm:pl-8">
+            <div className="mt-8 border-l-2 border-primary pl-6 sm:pl-8">
               <p className="max-w-2xl font-display text-2xl font-medium leading-snug text-foreground sm:text-4xl">
-                你的航線追蹤儀表板即將上線
+                選一條航線，設定你的目標價
               </p>
-              <p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">
-                下一個里程碑會加上訂閱航線的功能。
-              </p>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-subtle-foreground">
-                Your dashboard is coming soon. Route-subscription will be added in the next
-                milestone.
+              <p className="mt-3 max-w-xl text-base leading-7 text-muted-foreground">
+                票價一達標，我們就寄信通知你。
               </p>
             </div>
 
-            <div className="mt-14 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3">
-              {[
-                { icon: Plane, label: "Route", value: "Taipei → Anywhere" },
-                { icon: BellRing, label: "Alert", value: "Target price" },
-                { icon: Sparkles, label: "Status", value: "Coming soon" },
-              ].map(({ icon: Icon, label, value }) => (
-                <div key={label} className="rounded-2xl border border-border bg-card/80 p-4 backdrop-blur-sm">
-                  <Icon className="mb-5 size-5 text-primary" aria-hidden="true" />
-                  <p className="text-[11px] font-semibold uppercase text-subtle-foreground">{label}</p>
-                  <p className="mt-1 text-sm font-medium text-foreground">{value}</p>
-                </div>
-              ))}
-            </div>
+            <PlanCards email={user.email ?? ""} />
           </div>
         </section>
       </div>
